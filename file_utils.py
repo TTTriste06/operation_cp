@@ -30,12 +30,13 @@ def merge_cp_files_by_keyword(cp_dataframes: dict) -> dict:
 
 
 def extract_month_week(s):
-    match = re.match(r"(\d{1,2})月WK(\d)", s)
+    match = re.match(r"(\d{4})-(\d{2}) WK(\d)", s)
     if match:
-        month = int(match.group(1))
-        week = int(match.group(2))
-        return (month, week)
-    return (99, 99)  # 放最后
+        year = int(match.group(1))
+        month = int(match.group(2))
+        week = int(match.group(3))
+        return (year, month, week)
+    return (9999, 99, 99)  # 排最后
 
 def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     import pandas as pd
@@ -50,17 +51,18 @@ def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     }
 
     def get_week_label(dt: pd.Timestamp) -> str:
-        if pd.isnull(dt): return None
-        day = dt.day
-        month = dt.strftime("%m月")
-        if 1 <= day <= 7:
-            return f"{month}WK1(1–7)"
-        elif 8 <= day <= 15:
-            return f"{month}WK2(8–15)"
-        elif 16 <= day <= 22:
-            return f"{month}WK3(16–22)"
-        else:
-            return f"{month}WK4(23–end)"
+    if pd.isnull(dt):
+        return None
+    year_month = dt.strftime("%Y-%m")
+    day = dt.day
+    if 1 <= day <= 7:
+        return f"{year_month} WK1(1–7)"
+    elif 8 <= day <= 15:
+        return f"{year_month} WK2(8–15)"
+    elif 16 <= day <= 22:
+        return f"{year_month} WK3(16–22)"
+    else:
+        return f"{year_month} WK4(23–end)"
 
     all_rows = []
 
