@@ -48,6 +48,7 @@ class PivotProcessor:
                 st.warning(f"⚠️ CP 文件 `{filename}` 未包含关键字，已跳过")
 
         self.cp_dataframes = merge_cp_files_by_keyword(self.cp_dataframes)
+        self.SH_fabout = merge_cp_files_by_keyword(self.SH_fabout)
 
         st.write(self.SH_fabout)
 
