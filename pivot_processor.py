@@ -64,6 +64,7 @@ class PivotProcessor:
             
             format_fab_summary_month_headers(ws)
 
+
         
             # 写时间戳和说明
             ws.cell(row=1, column=1, value=f"主计划生成时间：{timestamp}")            
@@ -88,7 +89,7 @@ class PivotProcessor:
             ws.auto_filter.ref = f"A2:{last_col_letter}2"
         
             # 冻结
-            ws.freeze_panes = "D3"
+            ws.freeze_panes = "C3"
            
         output_buffer.seek(0)
        
