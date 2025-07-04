@@ -23,7 +23,7 @@ def get_uploaded_files():
     )
 
     # ✅ 合并上传框：所有主+明细文件统一上传
-    st.subheader("📁 上传主文件")
+    st.subheader("📁 上传成品文件")
     all_files = st.file_uploader(
         "关键字：未交订单/成品在制/成品库存/CP在制/晶圆库存/下单明细/销货明细/到货明细（支持多选）",
         type=["xlsx"],
@@ -41,6 +41,23 @@ def get_uploaded_files():
     else:
         st.info("📂 尚未上传文件。")
 
+    st.subheader("📁 上传晶圆文件")
+    all_cp_files = st.file_uploader(
+        "关键字：华虹/先进/DB/上华（支持多选）",
+        type=["xlsx", "xls"],
+        accept_multiple_files=True,
+        key="all_cp_files"
+    )
+
+    uploaded_cp_files = {}
+    if all_cp_files:
+        for file in all_cp_files:
+            uploaded_cp_files[file.name] = file
+        st.success(f"✅ 共上传 {len(uploaded_cp_files)} 个文件：")
+        st.write(list(uploaded_cp_files.keys()))
+    else:
+        st.info("📂 尚未上传文件。")
+
     # 📁 上传辅助文件
     st.subheader("📁 上传辅助文件（如无更新可跳过）")
     forecast_file = st.file_uploader("📈 上传预测文件", type="xlsx", key="forecast")
@@ -52,4 +69,4 @@ def get_uploaded_files():
     # 🚀 生成按钮
     start = st.button("🚀 生成汇总 Excel")
 
-    return uploaded_files, forecast_file, safety_file, mapping_file, pc_file, selected_date, start
+    return uploaded_files, forecast_file, safety_file, mapping_file, pc_file, selected_date, uploaded_cp_files, start
