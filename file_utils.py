@@ -84,9 +84,12 @@ def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     ).reset_index()
 
     # 列顺序排序
-    week_cols = sorted([col for col in result.columns if "WK" in str(col)],
-                       key=lambda x: (int(x[:2].replace("月", "")), int(x[-8:-6])))  # 简易排序逻辑
+    week_cols = sorted(
+        [col for col in result.columns if isinstance(col, str) and "WK" in col],
+        key=extract_month_week
+    )
     result = result[["晶圆型号", "FAB"] + week_cols]
+
 
     return result
 
