@@ -41,9 +41,9 @@ def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     import pandas as pd
 
     fab_rules = {
-        "上华1厂": {"key": "上华", "fab": "CSMC-1", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
-        "上华2厂": {"key": "上华", "fab": "CSMC-2", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
-        "上华5厂": {"key": "上华", "fab": "CSMC-5", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
+        "上华1厂": {"key": "上华1厂", "fab": "CSMC-1", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
+        "上华2厂": {"key": "上华2厂", "fab": "CSMC-2", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
+        "上华5厂": {"key": "上华5厂", "fab": "CSMC-5", "part": "CUST_PARTNAME", "qty": "CURRENT_QTY", "date": "FORECAST_FAB_OUT_DATE"},
         "DB":     {"key": "DB", "fab": "DB", "part": "Customer Device", "qty": "Cur Wfs", "date": "Confirmed Date"},
         "华虹":    {"key": "华虹", "fab": "HHG", "part": "客户品名", "qty": "当前数量", "date": "最终确定交货日期"},
         "先进积塔": {"key": "先进", "fab": "ASMC-GTA", "part": "Device ID", "qty": "End Qty", "date": "Estimate Out Date"},
