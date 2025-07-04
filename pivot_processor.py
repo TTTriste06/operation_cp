@@ -27,7 +27,7 @@ class PivotProcessor:
         """
         # === 标准化上传文件名 ===
         self.cp_dataframes = {}
-        cp_keywords = ["华虹", "先进", "DB", "上华"]
+        cp_keywords = ["华虹", "先进", "DB", "上华1厂", "上华2厂", "上华5厂"]
         cp_file_counter = {k: 0 for k in cp_keywords}
         
         for filename, file_obj in uploaded_cp_files.items():
