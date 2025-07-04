@@ -20,7 +20,7 @@ def main():
         buffer = BytesIO()
         processor = PivotProcessor()
         processor.set_additional_data(additional_sheets)
-        processor.process(uploaded_files, uploaded_cp_files, buffer, additional_sheets, start_date=selected_date)
+        processor.process(uploaded_cp_files, buffer)
 
         # 下载文件按钮
         file_name = f"FAB-WIP数据汇总_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
