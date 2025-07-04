@@ -18,7 +18,7 @@ from excel_utils import (
 )
 from sheet_add import clean_df, append_all_standardized_sheets
 from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
-from file_utils import merge_cp_files_by_keyword, generate_fab_summary
+from file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
 
 class PivotProcessor:
     def process(self, uploaded_cp_files: dict, output_buffer):
@@ -61,6 +61,9 @@ class PivotProcessor:
             # 获取 workbook 和 worksheet
             wb = writer.book
             ws = wb["FAB_WIP_汇总"]
+            
+            format_fab_summary_month_headers(ws)
+
         
             # 写时间戳和说明
             ws.cell(row=1, column=1, value=f"主计划生成时间：{timestamp}")            
