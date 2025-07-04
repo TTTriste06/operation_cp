@@ -13,26 +13,9 @@ def main():
     setup_sidebar()
 
     # 获取上传文件
-    uploaded_files, forecast_file, safety_file, mapping_file, pc_file, selected_date, uploaded_cp_files, start = get_uploaded_files()
+    uploaded_cp_files, start = get_uploaded_files()
     
-    if start:            
-        if len(uploaded_files) < 8:
-            st.error("❌ 请上传 8 个核心文件（未交订单/成品在制/成品库存/CP在制/晶圆库存/下单明细/销货明细/到货明细）！")
-            return
-            
-        # 加载辅助表
-        df_forecast = load_file_with_github_fallback("forecast", forecast_file)
-        df_safety = load_file_with_github_fallback("safety", safety_file)
-        df_mapping = load_file_with_github_fallback("mapping", mapping_file)
-        df_pc = load_file_with_github_fallback("pc", pc_file)
-        
-        additional_sheets = {
-            "赛卓-预测": df_forecast,
-            "赛卓-安全库存": df_safety,
-            "赛卓-新旧料号": df_mapping,
-            "赛卓-供应商-PC": df_pc
-        }
-
+    if start:                     
         # 初始化处理器
         buffer = BytesIO()
         processor = PivotProcessor()
@@ -40,7 +23,7 @@ def main():
         processor.process(uploaded_files, uploaded_cp_files, buffer, additional_sheets, start_date=selected_date)
 
         # 下载文件按钮
-        file_name = f"运营数据订单-在制-库存汇总报告_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
+        file_name = f"FAB-WIP数据汇总_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
         st.success("✅ 汇总完成！你可以下载结果文件：")
         st.download_button(
             label="📥 下载 Excel 汇总报告",
