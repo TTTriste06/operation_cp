@@ -1,7 +1,6 @@
 import re
 import pandas as pd
 import streamlit as st
-from config import FIELD_MAPPINGS
 from openpyxl.utils import get_column_letter
 
 def append_original_cp_sheets(writer, cp_dataframes: dict):
