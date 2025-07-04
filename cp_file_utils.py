@@ -27,8 +27,6 @@ def merge_cp_files_by_keyword(cp_dataframes: dict) -> dict:
 
     return merged_cp_dataframes
 
-
-
 def extract_month_week(s):
     match = re.match(r"(\d{4})-(\d{2}) WK(\d)", s)
     if match:
