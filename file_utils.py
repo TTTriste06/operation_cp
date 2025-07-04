@@ -6,7 +6,7 @@ def merge_cp_files_by_keyword(cp_dataframes: dict) -> dict:
 
     # 将 DB, DB2, DB3... 聚合成同一组
     for key, df in cp_dataframes.items():
-        for kw in ["华虹", "先进", "DB", "上华"]:
+        for kw in ["华虹", "先进", "DB", "上华1厂", "上华2厂", "上华5厂"]:
             if key.startswith(kw):
                 grouped[kw].append(df)
                 break
