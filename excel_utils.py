@@ -48,13 +48,13 @@ def format_currency_columns_rmb(ws: Worksheet):
 
 def format_thousands_separator(ws: Worksheet):
     """
-    将 F 列（第6列）之后的所有列，若为数值或可转数字的字符串，设置为千位分隔格式：#,##0.00。
+    将 C 列（第3列）之后的所有列，若为数值或可转数字的字符串，设置为千位分隔格式：#,##0.00。
     """
     header_row = 2
     max_col = ws.max_column
     max_row = ws.max_row
 
-    for col_idx in range(6, max_col + 1):  # 从F列开始
+    for col_idx in range(3, max_col + 1):  # 从C列开始
         for row_idx in range(header_row + 1, max_row + 1):
             cell = ws.cell(row=row_idx, column=col_idx)
             val = cell.value
