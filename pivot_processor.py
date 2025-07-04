@@ -37,7 +37,9 @@ class PivotProcessor:
                     cp_file_counter[keyword] += 1
                     suffix = str(cp_file_counter[keyword])
                     new_key = f"{keyword}{suffix}" if cp_file_counter[keyword] > 1 else keyword
-                    if keyword == "上华":
+                    if keyword == "DB":
+                        self.cp_dataframes[new_key] = pd.read_excel(file_obj, header=1)
+                    elif keyword.startswith("上华"):
                         self.cp_dataframes[new_key] = pd.read_excel(file_obj, sheet_name = "wip")
                     else:
                         self.cp_dataframes[new_key] = pd.read_excel(file_obj)
