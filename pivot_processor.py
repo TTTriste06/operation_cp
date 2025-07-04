@@ -15,7 +15,7 @@ from excel_utils import (
 )
 from sheet_add import append_original_cp_sheets
 from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
-from file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
+from cp_file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
 
 class PivotProcessor:
     def process(self, uploaded_cp_files: dict, output_buffer):
