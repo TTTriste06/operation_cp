@@ -86,7 +86,6 @@ class PivotProcessor:
         
             # 冻结
             ws.freeze_panes = "D3"
-            append_all_standardized_sheets(writer, uploaded_cp_files, self.additional_sheets)
            
         output_buffer.seek(0)
        
