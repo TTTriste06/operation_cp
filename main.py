@@ -13,7 +13,7 @@ def main():
     setup_sidebar()
 
     # 获取上传文件
-    uploaded_files, forecast_file, safety_file, mapping_file, pc_file, selected_date, start = get_uploaded_files()
+    uploaded_files, forecast_file, safety_file, mapping_file, pc_file, selected_date, uploaded_cp_files, start = get_uploaded_files()
     
     if start:            
         if len(uploaded_files) < 8:
@@ -37,7 +37,7 @@ def main():
         buffer = BytesIO()
         processor = PivotProcessor()
         processor.set_additional_data(additional_sheets)
-        processor.process(uploaded_files, buffer, additional_sheets, start_date=selected_date)
+        processor.process(uploaded_files, uploaded_cp_files, buffer, additional_sheets, start_date=selected_date)
 
         # 下载文件按钮
         file_name = f"运营数据订单-在制-库存汇总报告_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
@@ -74,4 +74,3 @@ if __name__ == "__main__":
         import traceback
         print("❌ Streamlit app crashed:", e)
         traceback.print_exc()
-
