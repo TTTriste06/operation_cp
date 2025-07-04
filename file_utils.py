@@ -51,18 +51,18 @@ def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     }
 
     def get_week_label(dt: pd.Timestamp) -> str:
-    if pd.isnull(dt):
-        return None
-    year_month = dt.strftime("%Y-%m")
-    day = dt.day
-    if 1 <= day <= 7:
-        return f"{year_month} WK1(1–7)"
-    elif 8 <= day <= 15:
-        return f"{year_month} WK2(8–15)"
-    elif 16 <= day <= 22:
-        return f"{year_month} WK3(16–22)"
-    else:
-        return f"{year_month} WK4(23–end)"
+        if pd.isnull(dt):
+            return None
+        year_month = dt.strftime("%Y-%m")
+        day = dt.day
+        if 1 <= day <= 7:
+            return f"{year_month} WK1(1–7)"
+        elif 8 <= day <= 15:
+            return f"{year_month} WK2(8–15)"
+        elif 16 <= day <= 22:
+            return f"{year_month} WK3(16–22)"
+        else:
+            return f"{year_month} WK4(23–end)"
 
     all_rows = []
 
