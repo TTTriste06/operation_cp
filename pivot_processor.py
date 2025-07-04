@@ -16,7 +16,7 @@ from excel_utils import (
     format_thousands_separator,
     add_sheet_hyperlinks
 )
-from sheet_add import clean_df, append_all_standardized_sheets
+from sheet_add import clean_df, append_original_cp_sheets
 from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
 from file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
 
