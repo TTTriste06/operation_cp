@@ -111,9 +111,10 @@ def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
 
 def format_fab_summary_month_headers(ws):
     """
-    - 插入第一行月份标题并合并单元格
-    - 第二行去除“X月”前缀
-    - 前两行按月份着色
+    格式化 FAB_WIP_汇总 表头：
+    - 第 1 行按年份-月份（如 2025-07）合并相同月份列块
+    - 第 2 行去除列名前缀（只保留 WK 信息）
+    - 第 1/2 行按月统一填充颜色
     """
     fill_colors = [
         "FFF2CC",  # 浅黄
@@ -127,47 +128,46 @@ def format_fab_summary_month_headers(ws):
     ]
 
     max_col = ws.max_column
-    month_positions = {}
+    month_positions = {}  # {2025-07: (start_col, end_col)}
     month_order = []
-    
-    for col in range(3, max_col + 1):  # 第3列起是月份列
+
+    for col in range(3, max_col + 1):  # 从第3列开始是月份周数据
         cell = ws.cell(row=2, column=col)
         value = str(cell.value)
-        if "月" in value:
-            parts = value.split("月")
-            if len(parts) >= 2:
-                month = parts[0] + "月"
-                week = "WK" + parts[1].split("WK")[-1]
-                cell.value = week  # 删除前缀“X月”
-                
-                if month not in month_positions:
-                    month_positions[month] = [col, col]
-                    month_order.append(month)
-                else:
-                    month_positions[month][1] = col
 
-    # 插入第1行并合并
+        # 提取年月信息：形如 "2025-07 WK2(8–15)"
+        match = re.match(r"(\d{4}-\d{2}) WK\d", value)
+        if match:
+            year_month = match.group(1)
+            week_info = value.split(" ", 1)[-1]  # 保留 "WK2(8–15)" 等
+
+            # 更新 cell 显示值：去掉年份月份前缀
+            cell.value = week_info
+
+            if year_month not in month_positions:
+                month_positions[year_month] = [col, col]
+                month_order.append(year_month)
+            else:
+                month_positions[year_month][1] = col
+
+    # 插入第一行标题并合并、着色
     for idx, month in enumerate(month_order):
         start_col, end_col = month_positions[month]
         color = fill_colors[idx % len(fill_colors)]
         fill = PatternFill(start_color=color, end_color=color, fill_type="solid")
 
-        # 合并月份标题行
+        # 第1行合并并写入月份
         cell = ws.cell(row=1, column=start_col)
         cell.value = month
         cell.alignment = Alignment(horizontal="center", vertical="center")
         if start_col != end_col:
             ws.merge_cells(start_row=1, end_row=1, start_column=start_col, end_column=end_col)
 
-        # 着色第一行和第二行
+        # 为该月范围内的两行着色
         for col in range(start_col, end_col + 1):
             ws.cell(row=1, column=col).fill = fill
             ws.cell(row=2, column=col).fill = fill
 
-    # 清空前两列首行
+    # 清空前两列第1行
     ws.cell(row=1, column=1).value = ""
     ws.cell(row=1, column=2).value = ""
-
-
-
-
