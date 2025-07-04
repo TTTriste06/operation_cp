@@ -62,10 +62,10 @@ class PivotProcessor:
             ws = wb["FAB_WIP_汇总"]
             
             format_fab_summary_month_headers(ws)
+            format_thousands_separator(ws)
+            
             append_original_cp_sheets(writer, self.cp_dataframes)
 
-
-        
             # 写时间戳和说明
             ws.cell(row=1, column=1, value=f"主计划生成时间：{timestamp}")            
     
