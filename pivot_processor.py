@@ -7,16 +7,13 @@ from openpyxl.utils import get_column_letter
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill
 
-from config import FILE_KEYWORDS, FIELD_MAPPINGS, pivot_config, RENAME_MAP
 from excel_utils import (
-    adjust_column_width, 
-    highlight_replaced_names_in_main_sheet, 
-    reorder_main_plan_by_unfulfilled_sheet, 
+    adjust_column_width,
     format_currency_columns_rmb,
     format_thousands_separator,
     add_sheet_hyperlinks
 )
-from sheet_add import clean_df, append_original_cp_sheets
+from sheet_add import append_original_cp_sheets
 from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
 from file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
 
