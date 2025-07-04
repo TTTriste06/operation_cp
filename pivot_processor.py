@@ -63,6 +63,7 @@ class PivotProcessor:
             ws = wb["FAB_WIP_汇总"]
             
             format_fab_summary_month_headers(ws)
+            append_original_cp_sheets(writer, self.cp_dataframes)
 
 
         
