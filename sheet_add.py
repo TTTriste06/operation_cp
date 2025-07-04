@@ -4,35 +4,6 @@ import streamlit as st
 from config import FIELD_MAPPINGS
 from openpyxl.utils import get_column_letter
 
-def clean_df(df: pd.DataFrame) -> pd.DataFrame:
-    """
-    清洗 DataFrame：
-    - 将 NaN 和 'nan' 替换为空字符串；
-    - 去除字符串前后空格；
-    """
-    df = df.fillna("").replace("nan", "")
-    df = df.applymap(lambda x: str(x).strip() if isinstance(x, str) else x)
-    return df
-
-def adjust_column_width(writer, sheet_name: str, df):
-    """
-    自动调整指定 sheet 的列宽，使每列适应其内容长度。
-    
-    参数:
-    - writer: pd.ExcelWriter 实例（engine='openpyxl'）
-    - sheet_name: str，目标工作表名称
-    - df: 原始写入的 DataFrame，用于列宽计算
-    """
-    ws = writer.book[sheet_name]
-    
-    for i, col in enumerate(df.columns, 1):  # 1-based indexing
-        max_len = max(
-            df[col].astype(str).map(len).max(),
-            len(str(col))  # header 长度
-        )
-        col_letter = get_column_letter(i)
-        ws.column_dimensions[col_letter].width = max_len + 2  # 适度留白
-
 def append_original_cp_sheets(writer, cp_dataframes: dict):
     """
     将所有原始 CP 文件表追加为带格式的 sheet，命名为 FAB_WIP_上华1厂、FAB_WIP_DB 等
