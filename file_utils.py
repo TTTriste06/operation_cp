@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 from collections import defaultdict
 
@@ -22,6 +23,16 @@ def merge_cp_files_by_keyword(cp_dataframes: dict) -> dict:
             merged_cp_dataframes[kw] = pd.DataFrame()
 
     return merged_cp_dataframes
+
+
+
+def extract_month_week(s):
+    match = re.match(r"(\d{1,2})月WK(\d)", s)
+    if match:
+        month = int(match.group(1))
+        week = int(match.group(2))
+        return (month, week)
+    return (99, 99)  # 放最后
 
 def generate_fab_summary(cp_dataframes: dict) -> pd.DataFrame:
     import pandas as pd
