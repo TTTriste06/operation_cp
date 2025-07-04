@@ -18,7 +18,7 @@ from excel_utils import (
 )
 from sheet_add import clean_df, append_all_standardized_sheets
 from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
-from file_utils import merge_cp_files_by_keyword
+from file_utils import merge_cp_files_by_keyword, generate_fab_summary
 
 class PivotProcessor:
     def process(self, uploaded_cp_files: dict, output_buffer):
@@ -50,17 +50,17 @@ class PivotProcessor:
 
         st.write(self.cp_dataframes)
 
+        df_fab_summary = generate_fab_summary(self.cp_dataframes)
          
         # === 写入 Excel 文件（主计划）===
         timestamp = datetime.now().strftime("%Y%m%d")
         with pd.ExcelWriter(output_buffer, engine="openpyxl") as writer:
             # 写入主计划表
-            main_plan_df = clean_df(main_plan_df)
-            main_plan_df.to_excel(writer, sheet_name="主计划", index=False, startrow=1)
+            df_fab_summary.to_excel(writer, sheet_name="FAB_WIP_汇总", index=False, startrow=1)
         
             # 获取 workbook 和 worksheet
             wb = writer.book
-            ws = wb["主计划"]
+            ws = wb["FAB_WIP_汇总"]
         
             # 写时间戳和说明
             ws.cell(row=1, column=1, value=f"主计划生成时间：{timestamp}")            
