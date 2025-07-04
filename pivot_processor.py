@@ -24,6 +24,7 @@ class PivotProcessor:
         """
         # === 标准化上传文件名 ===
         self.cp_dataframes = {}
+        self.SH_fabout = {}
         cp_keywords = ["华虹", "先进", "DB", "上华1厂", "上华2厂", "上华5厂"]
         cp_file_counter = {k: 0 for k in cp_keywords}
         
@@ -38,6 +39,7 @@ class PivotProcessor:
                         self.cp_dataframes[new_key] = pd.read_excel(file_obj, header=1)
                     elif keyword.startswith("上华"):
                         self.cp_dataframes[new_key] = pd.read_excel(file_obj, sheet_name = "wip")
+                        self.SH_fabout[new_key] = pd.read_excel(file_obj, sheet_name = "fabout")
                     else:
                         self.cp_dataframes[new_key] = pd.read_excel(file_obj)
                     matched = True
@@ -47,7 +49,7 @@ class PivotProcessor:
 
         self.cp_dataframes = merge_cp_files_by_keyword(self.cp_dataframes)
 
-        st.write(self.cp_dataframes)
+        st.write(self.SH_fabout)
 
         df_fab_summary = generate_fab_summary(self.cp_dataframes)
          
