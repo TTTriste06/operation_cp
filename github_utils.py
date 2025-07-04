@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 # GitHub 配置
 GITHUB_TOKEN_KEY = "GITHUB_TOKEN"  # secrets.toml 中的密钥名
-REPO_NAME = "TTTriste06/operation_planning-"
+REPO_NAME = "TTTriste06/operation_cp"
 BRANCH = "main"
 
 FILENAME_KEYS = {
@@ -18,7 +18,7 @@ FILENAME_KEYS = {
     "arrival": "到货明细.xlsx",
     "order": "下单明细.xlsx",
     "sales": "销货明细.xlsx",
-    "pc": "供应商-PC.xlsx",
+    "pc": "供应商-PC.xlsx"
 }
 
 def upload_to_github(file_obj, filename):
