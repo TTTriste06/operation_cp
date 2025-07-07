@@ -13,13 +13,24 @@ def main():
     setup_sidebar()
 
     # 获取上传文件
-    uploaded_cp_files, start = get_uploaded_files()
-    
-    if start:                     
+    uploaded_cp_files, forecast_file, safety_file, unfulfilled_file, cp_wip_file, wafer_inventory_file, start = get_uploaded_files()
+
+    if start:
         # 初始化处理器
         buffer = BytesIO()
         processor = PivotProcessor()
-        processor.process(uploaded_cp_files, buffer)
+
+        # 将所有上传的辅助文件打包成一个 dict（便于传入 processor）
+        additional_files = {
+            "forecast": forecast_file,
+            "safety": safety_file,
+            "unfulfilled": unfulfilled_file,
+            "cp_wip": cp_wip_file,
+            "wafer_inventory": wafer_inventory_file,
+        }
+
+        # 调用处理方法（你可能需要在 PivotProcessor 中添加对这些辅助文件的处理逻辑）
+        processor.process(uploaded_cp_files, buffer, additional_files)
 
         # 下载文件按钮
         file_name = f"FAB-WIP数据汇总_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
