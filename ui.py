@@ -31,8 +31,23 @@ def get_uploaded_files():
     else:
         st.info("📂 尚未上传文件。")
 
+    # 📁 上传辅助文件
+    st.subheader("📁 上传辅助文件（如无更新可跳过）")
+    unfulfilled_file = st.file_uploader("📄 上传未交订单文件", type="xlsx", key="unfulfilled")
+    cp_wip_file = st.file_uploader("🧪 上传 CP 在制文件", type="xlsx", key="cp_wip")
+    wafer_inventory_file = st.file_uploader("💾 上传晶圆库存文件", type="xlsx", key="wafer_inventory")
+    forecast_file = st.file_uploader("📈 上传预测文件", type="xlsx", key="forecast")
+    safety_file = st.file_uploader("🔐 上传安全库存文件", type="xlsx", key="safety")
 
     # 🚀 生成按钮
     start = st.button("🚀 生成汇总 Excel")
 
-    return uploaded_cp_files, start
+    return (
+        uploaded_cp_files,
+        forecast_file,
+        safety_file,
+        unfulfilled_file,
+        cp_wip_file,
+        wafer_inventory_file,
+        start
+    )
