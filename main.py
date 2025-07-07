@@ -20,13 +20,20 @@ def main():
         buffer = BytesIO()
         processor = PivotProcessor()
 
+        # 加载辅助表
+        df_forecast = load_file_with_github_fallback("forecast", forecast_file)
+        df_safety = load_file_with_github_fallback("safety", safety_file)
+        df_unfulfilled = load_file_with_github_fallback("unfulfilled", unfulfilled_file)
+        df_cp_wip = load_file_with_github_fallback("cp_wip", cp_wip_file)
+        df_wafer_inventory = load_file_with_github_fallback("wafer_inventory", wafer_inventory_file)
+
         # 将所有上传的辅助文件打包成一个 dict（便于传入 processor）
         additional_files = {
-            "forecast": forecast_file,
-            "safety": safety_file,
-            "unfulfilled": unfulfilled_file,
-            "cp_wip": cp_wip_file,
-            "wafer_inventory": wafer_inventory_file,
+            "forecast": df_forecast,
+            "safety": df_safety,
+            "unfulfilled": df_unfulfilled,
+            "cp_wip": df_cp_wip,
+            "wafer_inventory": df_wafer_inventory,
         }
 
         # 调用处理方法（你可能需要在 PivotProcessor 中添加对这些辅助文件的处理逻辑）
