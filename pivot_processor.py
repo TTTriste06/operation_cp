@@ -18,7 +18,7 @@ from pivot_generator import generate_monthly_pivots, standardize_uploaded_keys
 from cp_file_utils import merge_cp_files_by_keyword, generate_fab_summary, format_fab_summary_month_headers
 
 class PivotProcessor:
-    def process(self, uploaded_cp_files: dict, output_buffer):
+    def process(self, uploaded_cp_files: dict, output_buffer, additional_files: dict):
         """
         替换品名、新建主计划表，并直接写入 Excel 文件（含列宽调整、标题行）。
         """
